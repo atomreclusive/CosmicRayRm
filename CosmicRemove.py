@@ -116,6 +116,7 @@ class cr_det:
         return self.cr_loc
 
     def rm(self):
-        for loc in self.cr_loc:
-            self.I[ loc[0], loc[1] ] = np.nan
-            self.I[ loc[0], loc[1] ] = np.nanmedian( self.I[ loc[0]-2:loc[0]+3 , loc[1]-2:loc[1]+3 ] )
+        if self.cr_loc.any():
+            for loc in self.cr_loc:
+                self.I[ loc[0], loc[1] ] = np.nan
+                self.I[ loc[0], loc[1] ] = np.nanmedian( self.I[ loc[0]-2:loc[0]+3 , loc[1]-2:loc[1]+3 ] )

@@ -18,10 +18,12 @@ cr_args.add_argument("-S", "--S_lim", default=5, type=float,
     help="Noise scaled threshold")
 cr_args.add_argument("-LF", "--LF_lim", default=2, type=float,
     help="Fine Structure scaled threshold")
+cr_args.add_argument("-mode", "--Mode", default='both', type=str,
+    help="Mode to determine what is a cosmic ray")
 args = vars(cr_args.parse_args())
 
 img_name = args['image'].split('.')[0]
-mode = 'both'
+mode = args['Mode']
 newdir = img_name + "_" + mode
 
 if not os.path.isdir(newdir):
@@ -43,7 +45,7 @@ ax1.set_title("Before")
 
 count = 0
 while True:
-    i.find(S_thresh=0.75, LF_thresh=1, mode='both')
+    i.find(S_thresh=args['S_lim'], LF_thresh=args['LF_lim'], mode=mode)
     if i.cr_loc.any():
         count+=1
         i.rm()
